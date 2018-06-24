@@ -1,0 +1,30 @@
+{
+  "name": "fourier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js --presets es2015,stage-2"
+  },
+  "author": "",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "react"
+    ]
+  },
+  "dependencies": {
+    "@react-slate/components": "^0.2.0",
+    "@react-slate/core": "^0.7.0",
+    "@react-slate/interactive": "^0.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "lodash": "^4.17.10",
+    "mathjs": "^5.0.0",
+    "nodemon": "^1.17.5",
+    "react": "^16.4.1"
+  }
+}
