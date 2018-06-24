@@ -29,17 +29,18 @@ export default class App extends React.Component {
   signal = null;
 
   componentDidMount() {
-    this.signal = generator(1024, 50);
+    this.signal = generator(Math.pow(2, this.state.samples), 50);
   }
 
   _onPress = (char, key) => {
     if (char === "1") {
       this.setState({ info: BUSY_STATUS, normalInProgress: true });
       const startTime = new Date();
-      descreteFourierTransform(this.signal, 1024, progress => {
+      descreteFourierTransform(this.signal, Math.pow(2, this.state.samples), progress => {
         this.setState({
           normalProgress: progress,
-          normalInProgress: progress === 1 ? false : true
+          normalInProgress: progress === 1 ? false : true,
+          info: progress === 1 ? READY_STATUS : BUSY_STATUS,
         });
       });
       const finishTime = new Date();
@@ -51,11 +52,15 @@ export default class App extends React.Component {
     } else if (key.name === "up") {
       this.setState(({ samples }) => ({
         samples: samples === 10 ? 10 : samples + 1
-      }));
+      }), () => {
+        this.signal = generator(Math.pow(2, this.state.samples), 50);
+      });
     } else if (key.name === "down") {
       this.setState(({ samples }) => ({
         samples: samples === 1 ? 1 : samples - 1
-      }));
+      }), () => {
+        this.signal = generator(Math.pow(2, this.state.samples), 50);
+      });
     }
   };
 
