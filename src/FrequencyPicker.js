@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text } from "@react-slate/core";
 
-export default class SamplesPicker extends React.Component {
+export default class FrequencyPicker extends React.Component {
   render() {
-    const { samples } = this.props;
+    const { frequency } = this.props;
     return (
       <View style={{ marginBottom: "1" }}>
         <Text
@@ -15,11 +15,11 @@ export default class SamplesPicker extends React.Component {
             marginRight: "1"
           }}
         >
-          PRÓBKI
+          CZĘSTOTLIWOŚĆ
         </Text>
         <Text
           style={{ display: "inline", color: "#BADA55" }}
-        >{`Aktualnie wybrane: ${samples} próbki. Zmień za pomocą strzałek ↑ ↓`}</Text>
+        >{`Aktualnie wybrana częstotliwość: ${frequency}. Zmień za pomocą strzałek ← →`}</Text>
       </View>
     );
   }

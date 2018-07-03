@@ -4,7 +4,7 @@ export default function generate(probesLength, samplingFrequency) {
   let signal = {};
   const step = 1.0 / samplingFrequency;
   let current = 0;
-  for (let i = 0; i < probesLength; i++) {
+  for (let i = 0; i < probesLength; i += step) {
     signal[current] = getValueFor(current);
     current += step;
   }

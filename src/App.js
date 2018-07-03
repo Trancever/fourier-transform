@@ -6,6 +6,7 @@ import Header from "./Header";
 import Transform from "./Transform";
 import Info from "./Info";
 import SamplesPicker from "./SamplesPicker";
+import FrequencyPicker from "./FrequencyPicker";
 
 import generator from "./signalGenerator";
 import { descreteFourierTransform } from "./fourierTransform";
@@ -23,13 +24,14 @@ export default class App extends React.Component {
     info: READY_STATUS,
     normalInProgress: false,
     fastInProgress: false,
-    samples: 4
+    samples: 4,
+    frequency: 50,
   };
 
   signal = null;
 
   componentDidMount() {
-    this.signal = generator(Math.pow(2, this.state.samples), 50);
+    this.generateSignal()
   }
 
   _onPress = (char, key) => {
@@ -52,17 +54,26 @@ export default class App extends React.Component {
     } else if (key.name === "up") {
       this.setState(({ samples }) => ({
         samples: samples === 10 ? 10 : samples + 1
-      }), () => {
-        this.signal = generator(Math.pow(2, this.state.samples), 50);
-      });
+      }), this.generateSignal);
     } else if (key.name === "down") {
       this.setState(({ samples }) => ({
         samples: samples === 1 ? 1 : samples - 1
-      }), () => {
-        this.signal = generator(Math.pow(2, this.state.samples), 50);
-      });
+      }), this.generateSignal);
+    } else if (key.name === "left") {
+      this.setState(({ frequency }) => ({
+        frequency: frequency === 10 ? 10 : frequency - 20
+      }), this.generateSignal);
+    } else if (key.name === "right") {
+      this.setState(({ frequency }) => ({
+        frequency: frequency === 250 ? 250 : frequency + 20
+      }), this.generateSignal);
     }
   };
+
+  generateSignal = () => {
+    const { samples, frequency } = this.state;
+    this.signal = generator(Math.pow(2, samples), frequency);
+  }
 
   render() {
     const {
@@ -73,13 +84,16 @@ export default class App extends React.Component {
       info,
       normalInProgress,
       fastInProgress,
-      samples
+      samples,
+      frequency,
     } = this.state;
+
     return (
       <View style={{ marginLeft: "1" }}>
         <Header />
         <Info info={info} />
         <SamplesPicker samples={Math.pow(2, samples)} />
+        {/* <FrequencyPicker frequency={frequency} /> */}
         <Transform
           type="Zwykła transformata fouriera"
           value={normalProgress}
